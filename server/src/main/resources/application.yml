@@ -94,6 +94,33 @@ mq:
         name:
           one: ${mq.env}.middleware.mq.topic.*.routing.key
           two: ${mq.env}.middleware.mq.topic.#.routing.key
+  auto:
+    knowledge:
+      queue:
+        name: ${mq.env}.middleware.mq.auto.knowledge.queue
+      exchange:
+        name: ${mq.env}.middleware.mq.auto.knowledge.exchange
+      routing:
+        key:
+          name: ${mq.env}.middleware.mq.auto.knowledge.routing.key
+  manual:
+    knowledge:
+      queue:
+        name: ${mq.env}.middleware.mq.manual.knowledge.queue
+      exchange:
+        name: ${mq.env}.middleware.mq.manual.knowledge.exchange
+      routing:
+        key:
+          name: ${mq.env}.middleware.mq.manual.knowledge.routing.key
+  login:
+    queue:
+      name: ${mq.env}.middleware.mq.login.queue
+    exchange:
+      name: ${mq.env}.middleware.mq.login.exchange
+    routing:
+      key:
+        name: ${mq.env}.middleware.mq.login.routing.key
+
 
 ## mybatis配置
 mybatis:

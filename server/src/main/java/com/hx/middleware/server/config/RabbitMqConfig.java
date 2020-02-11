@@ -1,13 +1,18 @@
 package com.hx.middleware.server.config;
 
+import com.hx.middleware.server.rabbitmq.consumer.KnowledgeConsumer;
+import com.hx.middleware.server.rabbitmq.consumer.KnowledgeManualConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.amqp.SimpleRabbitListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -77,6 +82,25 @@ public class RabbitMqConfig {
         //设置拉取消息的数据量
         factory.setPrefetchCount(10);
         return factory;
+    }
+
+
+    /**
+     * 单一消费者，消费消费后的确认模式为auto
+     * @return
+     */
+    @Bean("listenerContainerAutoFactory")
+    public SimpleRabbitListenerContainerFactory listenerContainerAutoFactory() {
+        SimpleRabbitListenerContainerFactory factory =new SimpleRabbitListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory);
+        factory.setMessageConverter(new Jackson2JsonMessageConverter());
+        factory.setConcurrentConsumers(1);
+        factory.setMaxConcurrentConsumers(1);
+        factory.setPrefetchCount(1);
+        //设置消息消费的确认模式 ===设置为自动确认
+        factory.setAcknowledgeMode(AcknowledgeMode.AUTO);
+        return factory;
+
     }
 
     /**
@@ -235,6 +259,84 @@ public class RabbitMqConfig {
         return BindingBuilder.bind(topicQueueTwo()).to(topicExchange()).with(env.getProperty("mq.topic.routing.key.name.two"));
     }
 // ===========================topic配置==============================================
+
+
+    // ===========================auto自动确认机制消息队列配置==============================================、
+    @Bean("autoQueue")
+    public Queue autoQueue() {
+        return new Queue(env.getProperty("mq.auto.knowledge.queue.name"));
+    }
+
+    @Bean
+    public DirectExchange autoExchange() {
+        return new DirectExchange(env.getProperty("mq.auto.knowledge.exchange.name"),true,false);
+    }
+
+    @Bean
+    public Binding autoBinding() {
+        return BindingBuilder.bind(autoQueue()).to(autoExchange()).with(env.getProperty("mq.auto.knowledge.routing.key.name"));
+    }
+// ===========================auto自动确认机制消息队列配置==============================================
+
+
+    // ===========================manual手动确认配置==============================================
+    @Bean("manualQueue")
+    public Queue manualQueue() {
+        return new Queue(env.getProperty("mq.manual.knowledge.queue.name"),true);
+    }
+
+    @Bean
+    public DirectExchange manualExchange() {
+        return new DirectExchange(env.getProperty("mq.manual.knowledge.exchange.name"),true,false);
+    }
+
+    @Bean
+    public Binding manualBinding() {
+        return BindingBuilder.bind(manualQueue()).to(manualExchange()).with(env.getProperty("mq.manual.knowledge.routing.key.name"));
+    }
+
+    /**
+     * 注入手动确认消费者实例
+     */
+    @Autowired
+    private KnowledgeManualConsumer knowledgeManualConsumer;
+
+    @Bean("simpleContainerManual")
+    public SimpleMessageListenerContainer simpleContainer(@Qualifier("manualQueue") Queue manualQueue) {
+        SimpleMessageListenerContainer container =new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setMessageConverter(new Jackson2JsonMessageConverter());
+        container.setConcurrentConsumers(1);
+        container.setMaxConcurrentConsumers(1);
+        container.setPrefetchCount(1);
+        // 设置确认机制
+        container.setAcknowledgeMode(AcknowledgeMode.MANUAL);
+        container.setQueues(manualQueue);
+        container.setMessageListener(knowledgeManualConsumer);
+        // 返回工厂实例
+        return container;
+    }
+
+
+    // ===========================用户日志记录==============================================
+    @Bean("loginQueue")
+    public Queue loginQueue() {
+        return new Queue(env.getProperty("mq.login.queue.name"));
+    }
+
+    @Bean
+    public DirectExchange loginExchange() {
+        return new DirectExchange(env.getProperty("mq.login.exchange.name"));
+    }
+
+    @Bean
+    public Binding loginBinding() {
+        return BindingBuilder.bind(loginQueue()).to(loginExchange()).with(env.getProperty("mq.login.routing.key.name"));
+    }
+
+
+// ===========================用户日志记录==============================================
+// ===========================用户日志记录==============================================
 
 
 }

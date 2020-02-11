@@ -2,8 +2,11 @@ package com.hx.middleware.server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hx.middleware.server.entity.EventInfo;
+import com.hx.middleware.server.rabbitmq.entity.KnowledgeInfo;
 import com.hx.middleware.server.rabbitmq.entity.Person;
 import com.hx.middleware.server.rabbitmq.publisher.BasicPublisher;
+import com.hx.middleware.server.rabbitmq.publisher.KnowledgeManualPublisher;
+import com.hx.middleware.server.rabbitmq.publisher.KnowledgePublisher;
 import com.hx.middleware.server.rabbitmq.publisher.ModelPublisher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +32,10 @@ public class RabbitMqTest {
     private BasicPublisher publisher;
     @Autowired
     private ModelPublisher modelPublisher;
+    @Autowired
+    private KnowledgePublisher knowledgePublisher;
+    @Autowired
+    private KnowledgeManualPublisher knowledgeManualPublisher;
 
     /**
      * 测试基本消息模式发送消息-字符串
@@ -87,6 +94,18 @@ public class RabbitMqTest {
         //  modelPublisher.sendMsgByTopic(message,routingKeyTwo);
         // test3
         modelPublisher.sendMsgByTopic(message, routingKeyThree);
+    }
+
+    @Test
+    public void six() {
+        KnowledgeInfo info =new KnowledgeInfo(10010,"auto","基于auto机制的消息模式");
+        knowledgePublisher.sendAutoMsg(info);
+    }
+
+    @Test
+    public void senven() {
+        KnowledgeInfo info =new KnowledgeInfo(10010,"auto","基于Manual机制的消息模式");
+        knowledgeManualPublisher.sendManualMsg(info);
     }
 
 }
