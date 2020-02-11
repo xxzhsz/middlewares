@@ -120,6 +120,27 @@ mq:
     routing:
       key:
         name: ${mq.env}.middleware.mq.login.routing.key
+  dead:
+    queue:
+      name: ${mq.env}.middleware.mq.dead.queue
+    exchange:
+      name: ${mq.env}.middleware.mq.dead.exchange
+    routing:
+      key:
+        name: ${mq.env}.middleware.mq.dead.routing.key
+  producer:
+    basic:
+      exchange:
+        name: ${mq.env}.middleware.mq.producer.basic.exchange
+      routing:
+        key:
+          name: ${mq.env}.middleware.mq.producer.basic.routing.key
+  consumer:
+    queue:
+      name: ${mq.env}.middleware.mq.consumer.queue
+
+
+
 
 
 ## mybatis配置

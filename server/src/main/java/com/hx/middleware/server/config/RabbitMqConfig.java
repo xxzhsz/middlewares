@@ -18,6 +18,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author jxlgcmh
  * @date 2020-02-09 19:36
@@ -335,8 +338,63 @@ public class RabbitMqConfig {
     }
 
 
+    // ===========================死信队列==============================================
+
+    /**
+     * 创建死信队列
+     * @return
+     */
+    @Bean
+    public Queue basicDeadQueue() {
+        Map<String,Object> map =new HashMap<>();
+        // 死信交换机
+        map.put("x-dead-letter-exchange",env.getProperty("mq.dead.exchange.name"));
+        // 死信路由
+        map.put("x-dead-letter-routing-key",env.getProperty("mq.dead.routing.key.name"));
+        // 设置ttl ,此处设置为10秒
+        map.put("x-message-ttl",10000);
+        return  new Queue(env.getProperty("mq.dead.queue.name"),true,false,false,map);
+    }
+
+    /**
+     * 创建交换机，面向生产者
+     * @return
+     */
+    @Bean
+    public TopicExchange basicProducerExchange() {
+        return new TopicExchange(env.getProperty("mq.producer.basic.exchange.name"),true,false);
+    }
+
+    /**
+     * 创建死信队列绑定
+     * @return
+     */
+    @Bean
+    public Binding basicProducerBinding() {
+        return  BindingBuilder.bind(basicDeadQueue()).to(basicProducerExchange()).with(env.getProperty("mq.producer.basic.routing.key.name"));
+    }
+
+    /**
+     * 真正的消费者队列
+     * @return
+     */
+    @Bean
+    public Queue realConsumerQueue() {
+        return new Queue(env.getProperty("mq.consumer.queue.name"),true);
+    }
+
+    @Bean
+    public TopicExchange basicDeadExchange() {
+        return new TopicExchange(env.getProperty("mq.dead.exchange.name"),true,false);
+    }
+
+    @Bean
+    public Binding basicDeadBinding() {
+        return BindingBuilder.bind(realConsumerQueue()).to(basicDeadExchange()).with(env.getProperty("mq.dead.routing.key.name"));
+    }
+// ===========================死信队列==============================================
 // ===========================用户日志记录==============================================
-// ===========================用户日志记录==============================================
+
 
 
 }

@@ -2,12 +2,10 @@ package com.hx.middleware.server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hx.middleware.server.entity.EventInfo;
+import com.hx.middleware.server.rabbitmq.entity.DeadInfo;
 import com.hx.middleware.server.rabbitmq.entity.KnowledgeInfo;
 import com.hx.middleware.server.rabbitmq.entity.Person;
-import com.hx.middleware.server.rabbitmq.publisher.BasicPublisher;
-import com.hx.middleware.server.rabbitmq.publisher.KnowledgeManualPublisher;
-import com.hx.middleware.server.rabbitmq.publisher.KnowledgePublisher;
-import com.hx.middleware.server.rabbitmq.publisher.ModelPublisher;
+import com.hx.middleware.server.rabbitmq.publisher.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -36,6 +34,8 @@ public class RabbitMqTest {
     private KnowledgePublisher knowledgePublisher;
     @Autowired
     private KnowledgeManualPublisher knowledgeManualPublisher;
+    @Autowired
+    private DeadPublisher deadPublisher;
 
     /**
      * 测试基本消息模式发送消息-字符串
@@ -103,9 +103,17 @@ public class RabbitMqTest {
     }
 
     @Test
-    public void senven() {
+    public void seven() {
         KnowledgeInfo info =new KnowledgeInfo(10010,"auto","基于Manual机制的消息模式");
         knowledgeManualPublisher.sendManualMsg(info);
+    }
+
+    @Test
+    public void eight() throws InterruptedException {
+        DeadInfo info1 = new DeadInfo(1,"A");
+        deadPublisher.sendMsg(info1);
+        Thread.sleep(13000);
+
     }
 
 }
