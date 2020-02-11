@@ -38,15 +38,19 @@ public class RedPacketService implements IRedPacketService {
      */
     @Override
     public String handOut(RedPacketDto redPacketDto) throws Exception {
+        // 判断入参是否合法
         if (redPacketDto.getAmount() > 0 && redPacketDto.getTotal() > 0) {
             List<Integer> list = RedPacketUtil.dividedRedPacket(redPacketDto.getAmount(), redPacketDto.getTotal());
             String timestamp = String.valueOf(System.nanoTime());
+            // 红包key
             String redId = KEY_PREFIX + redPacketDto.getUserId() + ":" + timestamp;
             // 将红包随机金额放入redis
             redisTemplate.opsForList().leftPushAll(redId, list);
+            // 红包个数key
             String redTotalKey = redId + ":total";
-            //红包个数redis
+            //红包个数放入redis
             redisTemplate.opsForValue().set(redTotalKey, redPacketDto.getTotal());
+            // 数据库中记录红包
             redService.recordRedPacket(redPacketDto, redId, list);
             return redId;
         } else {
@@ -56,6 +60,7 @@ public class RedPacketService implements IRedPacketService {
 
     @Override
     public BigDecimal rob(Integer userId, String redId) {
+        // 抢红包者记录key
         final String USER_KEY_PREFIX = redId + ":rob:" + userId;
         // 如果用户抢过了就直接显示数据
         Object object = redisTemplate.opsForValue().get(USER_KEY_PREFIX);
@@ -65,17 +70,21 @@ public class RedPacketService implements IRedPacketService {
         // 点击红包
         Boolean result = click(redId);
         if (result) {
-            // 添加分布式锁
+            // 添加分布式锁  === 防止某一用户抢多次
             final String lockKey = redId + userId + "-lock";
+            // 如果不存在返回true并设置
             Boolean isLock = redisTemplate.opsForValue().setIfAbsent(lockKey, redId);
             redisTemplate.expire(lockKey, 24L, TimeUnit.HOURS);
             try {
                 if (isLock) {
+                    // 从list中取一个红包出来
                     Object value = redisTemplate.opsForList().rightPop(redId);
                     if (value != null) {
                         //对应的红包个数减去1
                         String totalKey = redId + ":total";
+                        // 当前的红包个数总数
                         Integer currentTotal = redisTemplate.opsForValue().get(totalKey) != null ? (Integer) redisTemplate.opsForValue().get(totalKey) : 0;
+                        // 当前的减1
                         redisTemplate.opsForValue().set(totalKey, currentTotal - 1);
                         //单位转换
                         BigDecimal res = new BigDecimal(value.toString()).divide(new BigDecimal(100));
@@ -98,6 +107,7 @@ public class RedPacketService implements IRedPacketService {
     private Boolean click(String redId) {
         String totalKey = redId + ":total";
         Object total = redisTemplate.opsForValue().get(totalKey);
+        // 红包还有个数
         if (total != null && Integer.parseInt(total.toString()) > 0) {
             return true;
         }
