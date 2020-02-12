@@ -139,7 +139,25 @@ mq:
     queue:
       name: ${mq.env}.middleware.mq.consumer.queue
 
-
+  order:
+    dead:
+      queue:
+        name: ${mq.env}.middleware.mq.order.dead.queue
+      exchange:
+        name: ${mq.env}.middleware.mq.order.dead.exchange
+      routing:
+        key:
+          name: ${mq.env}.middleware.mq.order.dead.routing.key
+    producer:
+      basic:
+        exchange:
+          name: ${mq.env}.middleware.mq.order.producer.basic.exchange
+        routing:
+          key:
+            name: ${mq.env}.middleware.mq.order.producer.basic.routing.key
+    consumer:
+      queue:
+        name: ${mq.env}.middleware.mq.order.consumer.queue
 
 
 

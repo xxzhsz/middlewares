@@ -90,11 +90,12 @@ public class RabbitMqConfig {
 
     /**
      * 单一消费者，消费消费后的确认模式为auto
+     *
      * @return
      */
     @Bean("listenerContainerAutoFactory")
     public SimpleRabbitListenerContainerFactory listenerContainerAutoFactory() {
-        SimpleRabbitListenerContainerFactory factory =new SimpleRabbitListenerContainerFactory();
+        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setMessageConverter(new Jackson2JsonMessageConverter());
         factory.setConcurrentConsumers(1);
@@ -272,7 +273,7 @@ public class RabbitMqConfig {
 
     @Bean
     public DirectExchange autoExchange() {
-        return new DirectExchange(env.getProperty("mq.auto.knowledge.exchange.name"),true,false);
+        return new DirectExchange(env.getProperty("mq.auto.knowledge.exchange.name"), true, false);
     }
 
     @Bean
@@ -285,12 +286,12 @@ public class RabbitMqConfig {
     // ===========================manual手动确认配置==============================================
     @Bean("manualQueue")
     public Queue manualQueue() {
-        return new Queue(env.getProperty("mq.manual.knowledge.queue.name"),true);
+        return new Queue(env.getProperty("mq.manual.knowledge.queue.name"), true);
     }
 
     @Bean
     public DirectExchange manualExchange() {
-        return new DirectExchange(env.getProperty("mq.manual.knowledge.exchange.name"),true,false);
+        return new DirectExchange(env.getProperty("mq.manual.knowledge.exchange.name"), true, false);
     }
 
     @Bean
@@ -306,7 +307,7 @@ public class RabbitMqConfig {
 
     @Bean("simpleContainerManual")
     public SimpleMessageListenerContainer simpleContainer(@Qualifier("manualQueue") Queue manualQueue) {
-        SimpleMessageListenerContainer container =new SimpleMessageListenerContainer();
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setMessageConverter(new Jackson2JsonMessageConverter());
         container.setConcurrentConsumers(1);
@@ -342,59 +343,105 @@ public class RabbitMqConfig {
 
     /**
      * 创建死信队列
+     *
      * @return
      */
     @Bean
     public Queue basicDeadQueue() {
-        Map<String,Object> map =new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         // 死信交换机
-        map.put("x-dead-letter-exchange",env.getProperty("mq.dead.exchange.name"));
+        map.put("x-dead-letter-exchange", env.getProperty("mq.dead.exchange.name"));
         // 死信路由
-        map.put("x-dead-letter-routing-key",env.getProperty("mq.dead.routing.key.name"));
+        map.put("x-dead-letter-routing-key", env.getProperty("mq.dead.routing.key.name"));
         // 设置ttl ,此处设置为10秒
-        map.put("x-message-ttl",10000);
-        return  new Queue(env.getProperty("mq.dead.queue.name"),true,false,false,map);
+        map.put("x-message-ttl", 10000);
+        return new Queue(env.getProperty("mq.dead.queue.name"), true, false, false, map);
     }
 
     /**
      * 创建交换机，面向生产者
+     *
      * @return
      */
     @Bean
     public TopicExchange basicProducerExchange() {
-        return new TopicExchange(env.getProperty("mq.producer.basic.exchange.name"),true,false);
+        return new TopicExchange(env.getProperty("mq.producer.basic.exchange.name"), true, false);
     }
 
     /**
      * 创建死信队列绑定
+     *
      * @return
      */
     @Bean
     public Binding basicProducerBinding() {
-        return  BindingBuilder.bind(basicDeadQueue()).to(basicProducerExchange()).with(env.getProperty("mq.producer.basic.routing.key.name"));
+        return BindingBuilder.bind(basicDeadQueue()).to(basicProducerExchange()).with(env.getProperty("mq.producer.basic.routing.key.name"));
     }
 
     /**
      * 真正的消费者队列
+     *
      * @return
      */
     @Bean
     public Queue realConsumerQueue() {
-        return new Queue(env.getProperty("mq.consumer.queue.name"),true);
+        return new Queue(env.getProperty("mq.consumer.queue.name"), true);
     }
 
     @Bean
     public TopicExchange basicDeadExchange() {
-        return new TopicExchange(env.getProperty("mq.dead.exchange.name"),true,false);
+        return new TopicExchange(env.getProperty("mq.dead.exchange.name"), true, false);
     }
 
     @Bean
     public Binding basicDeadBinding() {
         return BindingBuilder.bind(realConsumerQueue()).to(basicDeadExchange()).with(env.getProperty("mq.dead.routing.key.name"));
     }
-// ===========================死信队列==============================================
-// ===========================用户日志记录==============================================
 
+    // ===========================死信队列==============================================
+
+
+// ===========================用户订单死信队列==============================================
+
+    @Bean
+    public Queue orderDeadQueue() {
+        Map<String, Object> map = new HashMap<>();
+        // 死信交换机
+        map.put("x-dead-letter-exchange", env.getProperty("mq.order.dead.exchange.name"));
+        // 死信路由
+        map.put("x-dead-letter-routing-key", env.getProperty("mq.order.dead.routing.key.name"));
+        // 设置ttl ,此处设置为10秒
+        map.put("x-message-ttl", 10000);
+        return new Queue(env.getProperty("mq.order.dead.queue.name"), true, false, false, map);
+    }
+
+    @Bean
+    public TopicExchange orderProducerExchange() {
+        return new TopicExchange(env.getProperty("mq.order.producer.basic.exchange.name"), true, false);
+    }
+
+    @Bean
+    public Binding orderProducerBinding() {
+        return BindingBuilder.bind(orderDeadQueue()).to(orderProducerExchange()).with(env.getProperty("mq.order.producer.basic.routing.key.name"));
+    }
+
+    @Bean
+    public Queue realOrderConsumerQueue() {
+        return new Queue(env.getProperty("mq.order.consumer.queue.name"), true);
+    }
+
+    @Bean
+    public TopicExchange basicOrderDeadExchange() {
+        return new TopicExchange(env.getProperty("mq.order.dead.exchange.name"), true, false);
+    }
+
+    @Bean
+    public Binding basicOrderDeadBinding() {
+        return BindingBuilder.bind(realOrderConsumerQueue()).to(basicOrderDeadExchange()).with(env.getProperty("mq.order.dead.routing.key.name"));
+    }
+
+// ===========================用户订单死信队列==============================================
+// ===========================用户订单死信队列==============================================
 
 
 }
