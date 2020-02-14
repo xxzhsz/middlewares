@@ -3,6 +3,8 @@ package com.hx.middleware.server.service.lock;
 import com.hx.middleware.model.entity.UserReg;
 import com.hx.middleware.model.mapper.UserRegMapper;
 import com.hx.middleware.server.controller.lock.dto.UserRegDto;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -27,6 +29,10 @@ public class UserRegService {
     private UserRegMapper userRegMapper;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private CuratorFramework zkClient;
+
+    private static final String pathPrefix = "/middleware/zkLock";
 
 
     public void regNoLock(UserRegDto dto) {
@@ -78,6 +84,32 @@ public class UserRegService {
                     stringRedisTemplate.delete(key);
                 }
             }
+        }
+    }
+
+    public void regWithZkDistributeLock(UserRegDto dto) throws Exception {
+        InterProcessMutex mutex = new InterProcessMutex(zkClient, pathPrefix + dto.getUserName() + "-lock");
+        try {
+            boolean res = mutex.acquire(10L, TimeUnit.SECONDS);
+            if (res) {
+                UserReg user = userRegMapper.selectByUserName(dto.getUserName());
+                if (user == null) {
+                    log.info("加ZK分布式锁,注册的用户名为:{}", dto.getUserName());
+                    UserReg userReg = new UserReg();
+                    BeanUtils.copyProperties(dto, userReg);
+                    userReg.setCreateTime(new Date());
+                    userRegMapper.insertSelective(userReg);
+                } else {
+                    throw new RuntimeException("用户名已存在");
+                }
+            }else {
+                throw new RuntimeException("获取zk分布式锁失败!");
+            }
+        } catch (Exception e) {
+            throw e;
+        }finally {
+            // 释放锁
+            mutex.release();
         }
     }
 }

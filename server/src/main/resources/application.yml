@@ -166,3 +166,8 @@ mybatis:
   mapper-locations: classpath:mappers/*.xml
   check-config-location: true
   config-location: classpath:mybatis-config.xml
+
+## zk配置
+zk:
+  host: 182.92.5.36:2181
+  namespace: middleware_distributelock
