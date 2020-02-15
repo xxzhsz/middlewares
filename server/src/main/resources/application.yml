@@ -158,6 +158,24 @@ mq:
     consumer:
       queue:
         name: ${mq.env}.middleware.mq.order.consumer.queue
+  redisson:
+    dead:
+      queue:
+        name: ${mq.env}.middleware.mq.redisson.dead.queue
+      exchange:
+        name: ${mq.env}.middleware.mq.redisson.dead.exchange
+      routing:
+        key:
+          name: ${mq.env}.middleware.mq.redisson.dead.routing.key
+      basic:
+          exchange:
+            name: ${mq.env}.middleware.mq.redisson.dead.basic.exchange
+          routing:
+            key:
+              name: ${mq.env}.middleware.mq.redisson.dead.basic.routing.key
+      real:
+        queue:
+          name: ${mq.env}.middleware.mq.redisson.dead.real.queue
 
 
 
@@ -171,3 +189,6 @@ mybatis:
 zk:
   host: 182.92.5.36:2181
   namespace: middleware_distributelock
+## redisson.host
+redisson:
+  host: redis://182.92.5.36:6379

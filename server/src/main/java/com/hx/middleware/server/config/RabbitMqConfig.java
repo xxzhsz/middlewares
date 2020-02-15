@@ -440,8 +440,45 @@ public class RabbitMqConfig {
         return BindingBuilder.bind(realOrderConsumerQueue()).to(basicOrderDeadExchange()).with(env.getProperty("mq.order.dead.routing.key.name"));
     }
 
-// ===========================用户订单死信队列==============================================
-// ===========================用户订单死信队列==============================================
+    // ===========================死信队列的缺陷测试==============================================
+    @Bean
+    public Queue redissonBasicDeadQueue() {
+        // 配置死信队列参数
+        Map<String, Object> args = new HashMap<>(3);
+        args.put("x-dead-letter-exchange", env.getProperty("mq.redisson.dead.exchange.name"));
+        args.put("x-dead-letter-routing-key", env.getProperty("mq.redisson.dead.routing.key.name"));
+        // 设置ttl ,此处暂时不配置
+        //args.put("x-message-ttl", 10000);
+        return new Queue(env.getProperty("mq.redisson.dead.queue.name"), true, false, false, args);
+    }
+
+    @Bean
+    public TopicExchange redissonBasicExchange() {
+        return new TopicExchange(env.getProperty("mq.redisson.dead.basic.exchange.name"));
+    }
+
+    @Bean
+    public Binding redissonBasicBinding() {
+        return BindingBuilder.bind(redissonBasicDeadQueue()).to(redissonBasicExchange()).with(env.getProperty("mq.redisson.dead.basic.routing.key.name"));
+    }
+
+    @Bean
+    public Queue redissonBasicDeadRealQueue() {
+        return new Queue(env.getProperty("mq.redisson.dead.real.queue.name"));
+    }
+
+    @Bean
+    public TopicExchange redissonBasicDeadExchange() {
+        return new TopicExchange(env.getProperty("mq.redisson.dead.exchange.name"));
+    }
+
+    @Bean
+    public Binding redissonBasicDeadRealBinding() {
+        return BindingBuilder.bind(redissonBasicDeadRealQueue()).to(redissonBasicDeadExchange()).with(env.getProperty("mq.redisson.dead.routing.key.name"));
+    }
+
+
+// ===========================死信队列的缺陷测试==============================================
 
 
 }
