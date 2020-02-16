@@ -1,14 +1,13 @@
 package com.hx.middleware.server.service;
 
+import com.hx.middleware.model.dto.UserOrderDto;
 import com.hx.middleware.model.entity.MqOrder;
 import com.hx.middleware.model.entity.UserOrder;
 import com.hx.middleware.model.mapper.MqOrderMapper;
 import com.hx.middleware.model.mapper.UserOrderMapper;
-import com.hx.middleware.server.dto.UserOrderDto;
 import com.hx.middleware.server.rabbitmq.publisher.DeadOrderPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,8 @@
-package com.hx.middleware.server.rabbitmq.controller;
+package com.hx.middleware.server.controller.rabbitmq;
 
 import com.hx.middleware.api.enums.StatusCode;
 import com.hx.middleware.api.response.BaseResponse;
-import com.hx.middleware.server.dto.UserOrderDto;
+import com.hx.middleware.model.dto.UserOrderDto;
 import com.hx.middleware.server.service.DeadOrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.awt.*;
 
 /**
  * @author jxlgcmh

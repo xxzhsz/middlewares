@@ -1,4 +1,4 @@
-package com.hx.middleware.server.entity;
+package com.hx.middleware.model.entity;
 
 import lombok.Data;
 

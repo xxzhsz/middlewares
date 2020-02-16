@@ -1,10 +1,9 @@
 package com.hx.middleware.server.service.redisson;
 
-import com.hx.middleware.server.dto.UserLoginDto;
+import com.hx.middleware.model.dto.UserLoginDto;
 import com.hx.middleware.server.service.SysLogService;
 import org.redisson.api.RTopic;
 import org.redisson.api.RedissonClient;
-import org.redisson.api.listener.MessageListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

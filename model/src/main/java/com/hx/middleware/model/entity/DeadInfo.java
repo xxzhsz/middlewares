@@ -1,24 +1,20 @@
-package com.hx.middleware.server.rabbitmq.entity;
+package com.hx.middleware.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.io.Serializable;
-
 /**
  * @author jxlgcmh
- * @date 2020-02-10 18:58
+ * @date 2020-02-11 21:22
  * @description
  */
 @Data
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Person implements Serializable {
-
+@ToString
+public class DeadInfo {
     private Integer id;
-    private String name;
-    private String userName;
+    private String msg;
 }

@@ -1,11 +1,10 @@
-package com.hx.middleware.server.controller;
+package com.hx.middleware.server.controller.lock;
 
 import com.google.common.collect.Maps;
 import com.hx.middleware.api.enums.StatusCode;
 import com.hx.middleware.api.response.BaseResponse;
+import com.hx.middleware.model.dto.PraiseDto;
 import com.hx.middleware.model.dto.PraiseRankDto;
-import com.hx.middleware.server.dto.PraiseDto;
-import com.hx.middleware.server.dto.RedPacketDto;
 import com.hx.middleware.server.service.IPraiseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author jxlgcmh

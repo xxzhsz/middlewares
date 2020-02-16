@@ -1,4 +1,4 @@
-package com.hx.middleware.server.dto;
+package com.hx.middleware.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,6 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author jxlgcmh

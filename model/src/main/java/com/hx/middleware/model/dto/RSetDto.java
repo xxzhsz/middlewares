@@ -1,4 +1,4 @@
-package com.hx.middleware.server.dto;
+package com.hx.middleware.model.dto;
 
 import lombok.*;
 

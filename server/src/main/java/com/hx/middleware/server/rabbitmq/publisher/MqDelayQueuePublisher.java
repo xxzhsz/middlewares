@@ -1,13 +1,9 @@
 package com.hx.middleware.server.rabbitmq.publisher;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hx.middleware.server.rabbitmq.entity.DeadDto;
+import com.hx.middleware.model.dto.DeadDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.AmqpException;
-import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageDeliveryMode;
-import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.AbstractJavaTypeMapper;

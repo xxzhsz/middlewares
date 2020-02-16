@@ -1,4 +1,4 @@
-package com.hx.middleware.server.entity;
+package com.hx.middleware.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,15 +9,16 @@ import java.io.Serializable;
 
 /**
  * @author jxlgcmh
- * @date 2020-02-07 07:54
+ * @date 2020-02-09 20:15
  * @description
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Person implements Serializable {
+public class EventInfo implements Serializable {
     private Integer id;
+    private String module;
     private String name;
-    private Integer age;
+    private String desc;
 }

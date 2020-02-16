@@ -1,6 +1,6 @@
 package com.hx.middleware.server.rabbitmq.consumer;
 
-import com.hx.middleware.server.dto.UserLoginDto;
+import com.hx.middleware.model.dto.UserLoginDto;
 import com.hx.middleware.server.service.SysLogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

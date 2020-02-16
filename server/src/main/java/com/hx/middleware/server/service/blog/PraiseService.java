@@ -1,12 +1,11 @@
 package com.hx.middleware.server.service.blog;
 
+import com.hx.middleware.model.dto.PraiseDto;
 import com.hx.middleware.model.dto.PraiseRankDto;
 import com.hx.middleware.model.entity.Praise;
 import com.hx.middleware.model.mapper.PraiseMapper;
-import com.hx.middleware.server.dto.PraiseDto;
 import com.hx.middleware.server.service.IPraiseService;
 import com.hx.middleware.server.service.IRedisPraiseService;
-import org.redisson.api.RList;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;

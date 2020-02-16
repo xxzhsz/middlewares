@@ -1,4 +1,4 @@
-package com.hx.middleware.server.rabbitmq.entity;
+package com.hx.middleware.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

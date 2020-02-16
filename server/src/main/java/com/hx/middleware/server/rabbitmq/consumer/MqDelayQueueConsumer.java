@@ -1,6 +1,6 @@
 package com.hx.middleware.server.rabbitmq.consumer;
 
-import com.hx.middleware.server.rabbitmq.entity.DeadDto;
+import com.hx.middleware.model.dto.DeadDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

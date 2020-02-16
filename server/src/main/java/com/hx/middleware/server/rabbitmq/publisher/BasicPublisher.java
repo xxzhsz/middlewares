@@ -2,7 +2,7 @@ package com.hx.middleware.server.rabbitmq.publisher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
-import com.hx.middleware.server.rabbitmq.entity.Person;
+import com.hx.middleware.model.entity.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.*;

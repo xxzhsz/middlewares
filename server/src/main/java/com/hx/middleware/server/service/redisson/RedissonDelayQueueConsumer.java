@@ -1,14 +1,11 @@
 package com.hx.middleware.server.service.redisson;
 
-import com.hx.middleware.server.rabbitmq.entity.DeadDto;
+import com.hx.middleware.model.dto.DeadDto;
 import org.redisson.api.RBlockingDeque;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.core.Ordered;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

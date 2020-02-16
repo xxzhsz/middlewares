@@ -1,13 +1,12 @@
 package com.hx.middleware.server.service.redis;
 
+import com.hx.middleware.model.dto.RedPacketDto;
 import com.hx.middleware.model.entity.RedDetail;
 import com.hx.middleware.model.entity.RedRecord;
 import com.hx.middleware.model.entity.RedRobRecord;
 import com.hx.middleware.model.mapper.RedDetailMapper;
 import com.hx.middleware.model.mapper.RedRecordMapper;
 import com.hx.middleware.model.mapper.RedRobRecordMapper;
-import com.hx.middleware.server.controller.redis.RedPacketController;
-import com.hx.middleware.server.dto.RedPacketDto;
 import com.hx.middleware.server.service.IRedService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

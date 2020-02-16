@@ -1,9 +1,7 @@
 package com.hx.middleware.server;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hx.middleware.server.entity.Person;
-import com.hx.middleware.server.entity.User;
+import com.hx.middleware.model.entity.Person;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

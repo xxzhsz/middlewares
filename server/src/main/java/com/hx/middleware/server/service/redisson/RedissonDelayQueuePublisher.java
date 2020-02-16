@@ -1,13 +1,13 @@
 package com.hx.middleware.server.service.redisson;
 
-import com.hx.middleware.server.rabbitmq.entity.DeadDto;
+
+import com.hx.middleware.model.dto.DeadDto;
 import org.redisson.api.RBlockingDeque;
 import org.redisson.api.RDelayedQueue;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;

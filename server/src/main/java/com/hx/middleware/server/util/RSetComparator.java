@@ -6,7 +6,8 @@ package com.hx.middleware.server.util;
  * @description
  */
 
-import com.hx.middleware.server.dto.RSetDto;
+
+import com.hx.middleware.model.dto.RSetDto;
 
 import java.util.Comparator;
 

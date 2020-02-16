@@ -1,6 +1,6 @@
 package com.hx.middleware.server.service.redis;
 
-import com.hx.middleware.server.dto.RedPacketDto;
+import com.hx.middleware.model.dto.RedPacketDto;
 import com.hx.middleware.server.service.IRedPacketService;
 import com.hx.middleware.server.service.IRedService;
 import com.hx.middleware.server.util.RedPacketUtil;

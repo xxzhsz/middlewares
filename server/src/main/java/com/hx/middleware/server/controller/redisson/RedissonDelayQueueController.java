@@ -2,7 +2,7 @@ package com.hx.middleware.server.controller.redisson;
 
 import com.hx.middleware.api.enums.StatusCode;
 import com.hx.middleware.api.response.BaseResponse;
-import com.hx.middleware.server.rabbitmq.entity.DeadDto;
+import com.hx.middleware.model.dto.DeadDto;
 import com.hx.middleware.server.service.redisson.RedissonDelayQueuePublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

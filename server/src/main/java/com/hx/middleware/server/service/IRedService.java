@@ -1,6 +1,7 @@
 package com.hx.middleware.server.service;
 
-import com.hx.middleware.server.dto.RedPacketDto;
+
+import com.hx.middleware.model.dto.RedPacketDto;
 
 import java.math.BigDecimal;
 import java.util.List;

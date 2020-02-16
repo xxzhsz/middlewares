@@ -1,8 +1,7 @@
 package com.hx.middleware.server;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hx.middleware.server.entity.User;
+import com.hx.middleware.model.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -50,7 +49,8 @@ public class RedisTest {
     @Test
     public void two() throws IOException {
         log.info("======开始redis测试2============");
-        User user =new User(1,"chenminghua");
+        User user =new User();
+        user.setUserName("hello");
         final String key ="redis:template:two:object";
         final String value=objectMapper.writeValueAsString(user);
         redisTemplate.opsForValue().set(key,value);
@@ -80,7 +80,8 @@ public class RedisTest {
     @Test
     public void four() throws IOException {
         log.info("======开始redis测试4============");
-        User user =new User(1,"chenminghua");
+        User user =new User();
+        user.setUserName("hello");
         final String key ="redis:stringRedisTemplate:two:object";
         final String value=objectMapper.writeValueAsString(user);
         stringRedisTemplate.opsForValue().set(key,value);

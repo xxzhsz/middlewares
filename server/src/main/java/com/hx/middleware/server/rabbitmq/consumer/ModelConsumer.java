@@ -1,7 +1,7 @@
 package com.hx.middleware.server.rabbitmq.consumer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hx.middleware.server.entity.EventInfo;
+import com.hx.middleware.model.entity.EventInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

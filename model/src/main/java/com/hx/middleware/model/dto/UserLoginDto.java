@@ -1,22 +1,24 @@
-package com.hx.middleware.server.dto;
+package com.hx.middleware.model.dto;
 
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
  * @author jxlgcmh
- * @date 2020-02-12 08:13
+ * @date 2020-02-11 20:18
  * @description
  */
 @Data
 @ToString
-public class UserOrderDto implements Serializable {
+public class UserLoginDto implements Serializable {
+
     @NotBlank
-    private String orderNo;
-    @NotNull
+    private String userName;
+    @NotBlank
+    private String password;
+
     private Integer userId;
 }

@@ -3,7 +3,7 @@ package com.hx.middleware.server.rabbitmq.publisher;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
-import com.hx.middleware.server.entity.EventInfo;
+import com.hx.middleware.model.entity.EventInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;

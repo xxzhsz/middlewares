@@ -1,6 +1,6 @@
 package com.hx.middleware.server.service.redisson;
 
-import com.hx.middleware.server.dto.UserLoginDto;
+import com.hx.middleware.model.dto.UserLoginDto;
 import org.redisson.api.RTopic;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;

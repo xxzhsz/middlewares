@@ -1,10 +1,11 @@
 package com.hx.middleware.server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hx.middleware.server.entity.EventInfo;
-import com.hx.middleware.server.rabbitmq.entity.DeadInfo;
-import com.hx.middleware.server.rabbitmq.entity.KnowledgeInfo;
-import com.hx.middleware.server.rabbitmq.entity.Person;
+
+import com.hx.middleware.model.entity.DeadInfo;
+import com.hx.middleware.model.entity.EventInfo;
+import com.hx.middleware.model.entity.KnowledgeInfo;
+import com.hx.middleware.model.entity.Person;
 import com.hx.middleware.server.rabbitmq.publisher.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,7 +52,7 @@ public class RabbitMqTest {
      */
     @Test
     public void two() {
-        Person person = new Person(1, "chen", "minghua");
+        Person person = new Person(1, "chen", 5);
         publisher.sendObjectMsg(person);
     }
 

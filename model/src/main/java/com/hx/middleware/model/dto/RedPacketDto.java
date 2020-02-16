@@ -1,9 +1,10 @@
-package com.hx.middleware.server.dto;
+package com.hx.middleware.model.dto;
 
 import lombok.Data;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
+
 
 /**
  * @author jxlgcmh

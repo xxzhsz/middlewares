@@ -1,10 +1,10 @@
 package com.hx.middleware.server.service.lock;
 
+import com.hx.middleware.model.dto.BookRobDto;
 import com.hx.middleware.model.entity.BookRob;
 import com.hx.middleware.model.entity.BookStock;
 import com.hx.middleware.model.mapper.BookRobMapper;
 import com.hx.middleware.model.mapper.BookStockMapper;
-import com.hx.middleware.server.controller.lock.dto.BookRobDto;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.redisson.api.RLock;

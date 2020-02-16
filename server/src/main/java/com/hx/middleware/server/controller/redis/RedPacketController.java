@@ -2,9 +2,8 @@ package com.hx.middleware.server.controller.redis;
 
 import com.hx.middleware.api.enums.StatusCode;
 import com.hx.middleware.api.response.BaseResponse;
-import com.hx.middleware.server.dto.RedPacketDto;
+import com.hx.middleware.model.dto.RedPacketDto;
 import com.hx.middleware.server.service.IRedPacketService;
-import com.hx.middleware.server.service.IRedService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
-package com.hx.middleware.server.controller;
+package com.hx.middleware.server.controller.rabbitmq;
 
 import com.hx.middleware.api.enums.StatusCode;
 import com.hx.middleware.api.response.BaseResponse;
-import com.hx.middleware.server.dto.UserLoginDto;
+import com.hx.middleware.model.dto.UserLoginDto;
 import com.hx.middleware.server.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

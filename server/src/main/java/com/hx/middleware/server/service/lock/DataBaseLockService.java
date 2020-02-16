@@ -1,10 +1,10 @@
 package com.hx.middleware.server.service.lock;
 
+import com.hx.middleware.model.dto.UserAccountDto;
 import com.hx.middleware.model.entity.UserAccount;
 import com.hx.middleware.model.entity.UserAccountRecord;
 import com.hx.middleware.model.mapper.UserAccountMapper;
 import com.hx.middleware.model.mapper.UserAccountRecordMapper;
-import com.hx.middleware.server.controller.lock.dto.UserAccountDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.hx.middleware.server.rabbitmq.entity;
+package com.hx.middleware.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,14 +9,15 @@ import java.io.Serializable;
 
 /**
  * @author jxlgcmh
- * @date 2020-02-15 22:15
+ * @date 2020-02-16 18:34
  * @description
  */
 @Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeadDto  implements Serializable {
+public class MyPerson  implements Serializable {
     private Integer id;
     private String name;
+    private Integer age;
 }

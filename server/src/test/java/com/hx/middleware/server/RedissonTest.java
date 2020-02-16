@@ -1,9 +1,10 @@
 package com.hx.middleware.server;
 
-import com.hx.middleware.server.dto.BloomDto;
-import com.hx.middleware.server.dto.RMapDto;
-import com.hx.middleware.server.dto.RSetDto;
-import com.hx.middleware.server.dto.UserLoginDto;
+
+import com.hx.middleware.model.dto.BloomDto;
+import com.hx.middleware.model.dto.RMapDto;
+import com.hx.middleware.model.dto.RSetDto;
+import com.hx.middleware.model.dto.UserLoginDto;
 import com.hx.middleware.server.service.redisson.UserLoginPublisher;
 import com.hx.middleware.server.util.RSetComparator;
 import org.junit.Test;
@@ -17,7 +18,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;

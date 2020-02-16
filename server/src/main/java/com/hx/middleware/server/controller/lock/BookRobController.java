@@ -3,8 +3,7 @@ package com.hx.middleware.server.controller.lock;
 import com.google.common.base.Strings;
 import com.hx.middleware.api.enums.StatusCode;
 import com.hx.middleware.api.response.BaseResponse;
-import com.hx.middleware.server.controller.BookController;
-import com.hx.middleware.server.controller.lock.dto.BookRobDto;
+import com.hx.middleware.model.dto.BookRobDto;
 import com.hx.middleware.server.service.lock.BookRobService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("book/rob")
 public class BookRobController {
-    private static final Logger log = LoggerFactory.getLogger(BookController.class);
+    private static final Logger log = LoggerFactory.getLogger(BookRobController.class);
     @Autowired
     private BookRobService bookRobService;
 

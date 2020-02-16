@@ -1,4 +1,4 @@
-package com.hx.middleware.server.controller.lock.dto;
+package com.hx.middleware.model.dto;
 
 import lombok.Data;
 import lombok.ToString;

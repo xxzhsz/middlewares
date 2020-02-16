@@ -1,8 +1,8 @@
 package com.hx.middleware.server.service.lock;
 
+import com.hx.middleware.model.dto.UserRegDto;
 import com.hx.middleware.model.entity.UserReg;
 import com.hx.middleware.model.mapper.UserRegMapper;
-import com.hx.middleware.server.controller.lock.dto.UserRegDto;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.redisson.api.RLock;
