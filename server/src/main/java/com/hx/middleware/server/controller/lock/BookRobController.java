@@ -34,7 +34,9 @@ public class BookRobController {
             // 不加锁
 //            bookRobService.robNoLock(dto);
             //加ZK分布式锁
-            bookRobService.robWithZKLock(dto);
+//            bookRobService.robWithZKLock(dto);
+            // 加Redisson分布式锁
+            bookRobService.robWithRedissonLock(dto);
         } catch (Exception e) {
             response = new BaseResponse(StatusCode.Fail.getCode(), e.getMessage());
         }

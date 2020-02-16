@@ -33,7 +33,8 @@ public class UserRegController {
         }
         BaseResponse response = new BaseResponse(StatusCode.Success);
         try {
-            userRegService.regWithZkDistributeLock(dto);
+          //  userRegService.regWithZkDistributeLock(dto);
+            userRegService.RegWithRedissonDistributeLock(dto);
         } catch (Exception e) {
             response = new BaseResponse(StatusCode.Fail.getCode(), e.getMessage());
         }
