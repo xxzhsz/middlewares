@@ -5,8 +5,8 @@ server:
 
 ##日志存放
 logging:
-  path: /srv/dubbo/middleware/logs
-  file: middleware
+#  path: E:/logs/middleware
+#  file: middleware
   level:
     org:
       springframework: info
@@ -32,11 +32,11 @@ spring:
 
   ## redis配置
   redis:
-    host: 182.92.5.36
+    host: 121.36.22.172
     port: 6379
   ##rabbitmq配置
   rabbitmq:
-    host: 182.92.5.36
+    host: 121.36.22.172
     virtual-host: /
     port: 5672
     username: admin
@@ -187,8 +187,8 @@ mybatis:
 
 ## zk配置
 zk:
-  host: 182.92.5.36:2181
+  host: 121.36.22.172:2181
   namespace: middleware_distributelock
 ## redisson.host
 redisson:
-  host: redis://182.92.5.36:6379
+  host: redis://121.36.22.172:6379
